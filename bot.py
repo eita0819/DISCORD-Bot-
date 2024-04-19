@@ -5,7 +5,12 @@ import random
 import asyncio
 import sys
 from discord.ext import commands
-
+import youtube_dl
+import random
+import asyncio
+import json
+import os
+import time
   # Botのインスタンスを作成します
 intents = discord.Intents.all()
 
@@ -17,7 +22,6 @@ async def on_ready():  # Botが起動したときに実行されるイベント
     
     await bot.tree.sync()
     return
-import discord
 
 @bot.event
 async def on_ready():
@@ -247,8 +251,7 @@ async def on_ready():
 inappropriate_words = ["ちんこ", "まんこ", "セックス", ]  # 実際の下ネタをここにリストとして追加します
 
 
-from collections import defaultdict
-import json
+
 
 # スパムと下ネタの回数を追跡する辞書
 spam_tracker = defaultdict(list)
@@ -324,12 +327,7 @@ async def on_ready():
             url_detection.update(json.load(f))
     return
 
-import datetime
-import random
-import asyncio
-import json
-import os
-from discord import File
+
 # ユーザーの経験値とレベルを保存する辞書
 levels = {}
 
@@ -445,9 +443,7 @@ async def on_ready():
     # Rest of your on_ready code...
     return
 
-import datetime
-import random
-import asyncio
+
 
 @bot.slash_command()
 @commands.has_permissions(manage_messages=True)
@@ -512,7 +508,7 @@ async def todo_remove(ctx, *, task):
         await ctx.send(f'Task "{task}" not found in the list.')
     return
 
-from discord import Embed
+
 
 @bot.slash_command()
 async def rule(ctx, creator: discord.Member, *, rule_message):
@@ -525,8 +521,6 @@ async def rule(ctx, creator: discord.Member, *, rule_message):
 import subprocess
 
 server_process = None
-import os
-import time
 
 def agree_to_eula():
     eula_path = "C:\\Users\\eita0\\OneDrive\\Desktop\\bot\\eula.txt"
@@ -575,13 +569,7 @@ async def report(ctx, user: discord.Member, *, reason: str):
         await ctx.send("Admin not found.")
     return
 
-import discord
 
-import random
-import asyncio
-import json
-import os
-import time
 
 economy = {}
 
@@ -660,8 +648,6 @@ from discord.utils import get
 
 role_shop = {}
 role_emojis = ["🍎", "🍊", "🍇"]  # Add more if needed
-import json
-import os
 
 def load_role_shop():
     global role_shop
@@ -727,9 +713,7 @@ async def buyrole(user, role, cost):
     await user.add_roles(role)
     await user.interaction.response.send_message(f"You bought the {role.name} role for {cost} money.")
     return
-import discord
-from discord.ext import commands
-import youtube_dl
+
 
 bot = commands.Bot(command_prefix='!')
 
